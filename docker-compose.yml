@@ -1,0 +1,19 @@
+# verison del yml
+version: "3.9"
+
+# Es donde se corre una base de datos, una api, etc. 
+services:
+  # Este nombre es generico y se puede cambiar por cualquier nombre.
+  mongodb:
+    # verison del mongodb
+    image: mongo:5.0
+    # Debe correr en ese puerto en especifico para que se conecte a mongodb
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root123
+    volumes:
+      - ./mongo_data:/data/db
+volumes:
+  mongodata:

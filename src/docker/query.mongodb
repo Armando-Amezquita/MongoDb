@@ -1,0 +1,3 @@
+use("products")
+
+db.home.find().count();
