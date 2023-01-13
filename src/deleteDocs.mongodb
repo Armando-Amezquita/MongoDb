@@ -1,0 +1,10 @@
+use("products");
+
+// Delete one when id = 1
+db.home.deleteOne({ _id: 1 })
+
+// Delete many across the condition
+db.home.deleteMany({ price : 100 });
+
+// Delete all documents
+db.home.drop()

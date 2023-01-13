@@ -1,0 +1,20 @@
+use("products");
+
+db.home.insertOne({
+    name: "Producto 1",
+    price: 1000
+})
+
+db.home.insertMany([
+  {
+    name: "Producto 3",
+    price: 1000
+  },
+  {
+    name: "Producto 4",
+    price: 1000
+  }
+], {
+  ordered: false
+});
+/* ordered => crea todos los documentos sin parar ejecucion si en algun lado se encuentra con algo que haga fallar la app */

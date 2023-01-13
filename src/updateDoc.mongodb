@@ -1,0 +1,68 @@
+use("products");
+
+// Update any field
+db.home.updateOne(
+  // Query
+  { _id: 2},
+  {
+    /**
+     * field: The field name
+     * expression: The expression.
+     */
+    $set: {
+      name: "New Name"
+    }
+  }
+)
+
+// Increment any field
+db.home.updateOne(
+  { _id: 2},
+  {
+    $inc: {
+      price: 200
+    }
+  }
+)
+
+//This request look all documents when name is fernanda and increment the age
+db.home.updateMany(
+  { name: "fernanda"},
+  {
+    $inc: {
+      age: 2
+    }
+  }
+)
+
+// set => Sets or create the value of a field in a document
+db.home.updateMany(
+  { name: "fernanda"},
+  {
+    $set: {
+      country: "Usa"
+    }
+  }
+)
+
+// rename => change name of field from documents
+db.home.updateMany(
+  { name: "fernanda"},
+  {
+    rename: {
+        field: "my_data"
+    }
+  }
+)
+
+// unset => Removes the specified field from a document
+db.home.updateMany(
+  { name: "fernanda"},
+  {
+    $unset: {
+      rename: {
+        field: ""
+      }
+    }
+  }
+)

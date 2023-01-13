@@ -1,0 +1,52 @@
+use("products");
+
+db.inventory.insertMany([
+  { _id: 1, item: { name: "item ab", code: "123", description : "Single line description."    }, qty: 15, tags: [ "school", "book", "bag", "headphone", "appliance" ], },
+  { _id: 2, item: { name: "item cd", code: "123", description : "First line\nSecond line"     }, qty: 20, tags: [ "appliance", "school", "book" ] },
+  { _id: 3, item: { name: "item ij", code: "456", description : "Many spaces before     line" }, qty: 25, tags: [ "school", "book" ] },
+  { _id: 4, item: { name: "item xy", code: "456", description : "Multiple\nline description"  }, qty: 30, tags: [ "electronics", "school" ] },
+  { _id: 5, item: { name: "item mn", code: "000" }, qty: 20, tags: [ "appliance", "school" ] },
+])
+
+db.inventory.find()
+
+// $push => add new element from array
+db.inventory.updateOne({_id: 4},
+  {
+    $push: {
+      tags: "Headphone"
+    }
+  }
+)
+
+// $pull => remove one element from array
+db.inventory.updateMany({},
+  {
+    $pull: {
+      tags: "Headphone"
+    }
+  }
+)
+
+// $pull => remove many elements from array
+// $in => Matches any of the values specified in an array
+db.inventory.updateMany({},
+  {
+    $pull: {
+      tags: {
+        $in: ["Headphone", "book"]
+      }
+    }
+  }
+)
+
+// pop => remove one element
+db.inventory.deleteOne({},
+  {
+    $pop: {
+      tags: {
+        $in: ["Headphone", "book"]
+      }
+    }
+  }
+)
