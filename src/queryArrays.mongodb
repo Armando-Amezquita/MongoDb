@@ -1,0 +1,64 @@
+use("projects");
+
+db.inventory.insertMany([
+  { _id: 1, item: { name: "ab", code: "123" }, qty: 15, tags: ["A", "B", "C", "D"] },
+  { _id: 2, item: { name: "cd", code: "123" }, qty: 20, tags: ["E"] },
+  { _id: 3, item: { name: "ij", code: "456" }, qty: 25, tags: ["A", "B"] },
+  { _id: 4, item: { name: "xy", code: "456" }, qty: 30, tags: ["B", "A"] },
+  { _id: 5, item: { name: "mn", code: "000" }, qty: 20, tags: [["school", "country"], "city"] },
+  { _id: 6, item: { name: "mn", code: "000" }, qty: 20, tags: ["city"] },
+  { _id: 7, item: { name: "mn", code: "000" }, qty: 20, tags: ["school", "city"] },
+])
+
+db.survey.insertMany([
+  {
+    _id: 1,
+    results: [
+      { product: "abc", score: 10 },
+      { product: "xyz", score: 5 },
+    ],
+  },
+  {
+    _id: 2,
+    results: [
+      { product: "abc", score: 8 },
+      { product: "xyz", score: 7 },
+    ],
+  },
+  {
+    _id: 3,
+    results: [
+      { product: "abc", score: 7 },
+      { product: "xyz", score: 8 },
+    ],
+  },
+  {
+    _id: 4,
+    results: [
+      { product: "abc", score: 7 },
+      { product: "def", score: 8 },
+    ],
+  },
+]);
+
+
+// $in => return documents whte match condition
+db.inventory.find({ qty: { $in: [20, 25 ]}});
+// return => element with id 1-2 and 5
+
+// $in => return if match in any condition
+db.inventory.find({ tags: { $in: ["E", "D" ]}});
+// return => element with id 1 and 2
+
+//$nin => Return elements than be differents with the query
+db.inventory.find({ tags: { $in: ["E", "D" ]}});
+// return => element with id 3,4,5.
+
+// $all => return elements that have the exact query element, don't import order.
+db.inventory.find({ tags: { $all: ["city", "school" ]}});
+// return => elements with id 5,7.
+
+
+// $elemMatch => return elements that have the exact query element, this query have a elements with object into object have arrays.
+db.survey.find({ results: { $elemMatch: product: "xyz", score: { $lte: 5 } }});
+// return => elements with id 1

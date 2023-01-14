@@ -1,0 +1,45 @@
+use("products");
+
+// db.inventory2.insertMany([
+//   { _id: 1, name: "ab", code: "123" , qty: 15, tags: ["A", "B", "C", "D"] },
+//   { _id: 2, name: "cd", code: "123" , qty: 20, tags: ["E"] },
+//   { _id: 3, name: "ij", code: "456" , qty: 25, tags: ["A", "B"] },
+//   { _id: 4, name: "xy", code: "456" , qty: 30, tags: ["B", "A"] },
+//   { _id: 5, name: "mn", code: "000" , qty: 20, tags: [["school", "country"], "city"] },
+//   { _id: 6, name: "mn", code: "000" , qty: 20, tags: ["city"] },
+//   { _id: 7, name: "mn", code: "000" , qty: 20, tags: ["school", "city"] },
+// ])
+
+// db.inventory2.find( { qty: { $gte: 25}})
+
+//$or => validate condition and return elements that have name = mn || tags = school
+db.inventory2.find({
+  $or: [
+    {name: "mn"},
+    // {qty: {$gte: 20}}
+    {tags: { $in: ["school"]}}
+  ]
+})
+// return elements with id 5,6,7
+
+//$nor => validate condition and return elements that don't have name = mn |o| tags = school
+db.inventory2.find({
+  $nor: [
+    {name: "mn"},
+    // {qty: {$gte: 20}}
+    {tags: { $in: ["school"]}}
+  ]
+})
+// return elements with id 1,2,3,4
+
+//$and => validate condition and return elements that don't have name = mn && tags = school
+db.inventory2.find({
+  $and: [
+    {name: "mn"},
+    // {qty: {$gte: 20}}
+    {tags: { $in: ["school"]}}
+  ]
+})
+// return elements with id 1,2,3,4
+
+
