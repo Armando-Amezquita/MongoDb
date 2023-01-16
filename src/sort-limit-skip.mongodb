@@ -1,0 +1,27 @@
+use("platzi_store")
+
+// db.categories.drop()
+
+// db.categories.insertMany([
+//   { _id: 1, name: "category 1" },
+//   { _id: 2, name: "category 2" },
+//   { _id: 3, name: "category 3" },
+//   { _id: 4, name: "category 4" },
+//   { _id: 5, name: "category 5" },
+//   { _id: 6, name: "category 6" },
+//   { _id: 7, name: "category 7" },
+//   { _id: 8, name: "category 8" },
+//   { _id: 9, name: "category 9" },
+//   { _id: 10, name: "category 10" },
+// ])
+
+// Sort => Order the documents
+// 1 = 1 to 10 || A to Z
+// -1 = 10 to 1 || Z to A
+// db.categories.find().sort({_id: -1})
+
+// Limit => return limit query
+// db.categories.find().sort({_id: -1}).limit(2)
+
+// Skip => remove the expecified elements
+db.categories.find().sort({_id: -1}).limit(2).skip(2)
