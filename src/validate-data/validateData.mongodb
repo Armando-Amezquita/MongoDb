@@ -1,0 +1,47 @@
+use("store");
+
+db.createCollection("users", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["email", "password"],
+      properties: {
+        name: {
+          bsonType: "string"
+        },
+        email: {
+          bsonType: "string"
+        },
+        password: {
+          bsonType: "string"
+        },
+        age: {
+          bsonType: "number",
+          minimum: 18,
+          maximum: 99
+        }
+        isSingle: {
+          bsonType: "bool"
+        },
+        role: {
+          enum: ["customer", "seller", "admin"]
+        },
+        sizesShirt: {
+          // defined that information have be an array and its items strings,
+          bsonType: "array",
+          // uniqueItems => can't repeat information
+          uniqueItems: true
+          //minItems => have minimum one item
+          minItems: 1,
+          items: {
+            bsonType: "string"
+          }
+        }
+      }
+    }
+  }
+});
+
+/*
+  This request create a new table with params required and other optionals, too, defined type for values.
+ */
