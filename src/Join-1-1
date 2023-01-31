@@ -1,0 +1,26 @@
+use("products");
+
+//$lookup => Allow to join different documents in one, in this case through field iduser 
+//$proejct => Emit fields choosed   
+db.inventory2.aggregate([
+    {
+        $match: ObjectId('12e21j321321') 
+    },
+    {
+        $lookup: {
+            pipeline: [
+                {$project: {identification_number: 0, password: 0, createdAt: 0, updatedAt: 0, token: 0}},
+            ],
+            from :'inventory1',
+            localField: 'iduser',
+            foreignField: 'iduser',
+            as: 'detail'
+        }
+    },
+    {
+        $unwind: '$detail'
+    }
+])
+
+
+
