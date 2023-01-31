@@ -1,0 +1,43 @@
+use("products");
+
+db.inventory2.inserMany([
+    {
+        name: 'Store 1',
+        products: [
+            ObjectId('id')
+            ObjectId('id2')
+        ] 
+    },
+    {
+        name: 'Store 2',
+        products: [
+            ObjectId('id')
+            ObjectId('id2')
+            ObjectId('id3')
+            ObjectId('id4')
+        ] 
+    },
+])
+
+
+//$lookup => Mongo detect when field is an Array and populate information 
+db.inventory2.aggregate([
+    {
+        /**
+         * from: The target collection.
+         * localField: The local join field.
+         * foreignField: The target join field.
+         * as: The name for the results.
+         * pipeline: Optional pipeline to run on the foreign collection.
+         * let: Optional variables to use in the pipeline field stages.
+         */
+        $lookup: {
+          from: 'Products',
+          localField: 'iduser',
+          foreignField: 'products',
+          as: 'products'
+        }
+    }
+])
+
+
